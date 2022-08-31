@@ -1,0 +1,30 @@
+log:
+  level: info                     
+
+pipeline:
+  authenticators:
+    - id: anonymous_authenticator 
+      type: anonymous
+  authorizers:
+    - id: deny_all_requests       
+      type: deny
+    - id: allow_all_requests      
+      type: allow
+  mutators:
+    - id: create_jwt              
+      type: jwt
+
+rules:
+  default:                        
+    methods:
+      - GET
+      - POST
+    execute:
+      - authenticator: anonymous_authenticator
+      - authorizer: deny_all_requests
+      - mutator: create_jwt
+
+  providers:
+    file:                         
+      src: /heimdall/rule/rule.yaml
+      watch: true

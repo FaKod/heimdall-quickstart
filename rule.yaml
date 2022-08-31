@@ -1,0 +1,5 @@
+- id: test-rule
+  url: http://<**>/<**>
+  upstream: http://upstream
+  execute:
+    - authorizer: allow_all_requests

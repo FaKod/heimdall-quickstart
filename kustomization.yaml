@@ -1,0 +1,12 @@
+resources:
+  - heimdall.yaml
+  - upstream.yaml
+
+  
+configMapGenerator:
+- name: config
+  files:
+  - config.yaml
+- name: rule
+  files:
+  - rule.yaml

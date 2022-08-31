@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heimdall
+  labels:
+    app: heimdall
+spec:
+  selector:
+    matchLabels:
+      app: heimdall
+  template:
+    metadata:
+      labels:
+        app: heimdall
+    spec:
+      containers:
+        - name: heimdall
+          image: dadrus/heimdall:latest
+          args:
+            - -c
+            - /heimdall/conf/config.yaml
+            - serve
+            - proxy
+          volumeMounts:
+            - name: config
+              mountPath: /heimdall/conf
+            - name: rule
+              mountPath: /heimdall/rule
+      volumes:
+        - name: config
+          configMap:
+            name: config
+        - name: rule
+          configMap:
+            name: rule
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: heimdall
+spec:
+  selector:
+    app: heimdall
+  ports:
+  - name: heimdall
+    protocol: TCP
+    port: 4455
