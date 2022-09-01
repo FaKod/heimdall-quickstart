@@ -2,7 +2,6 @@ resources:
   - heimdall.yaml
   - upstream.yaml
 
-  
 configMapGenerator:
 - name: config
   files:

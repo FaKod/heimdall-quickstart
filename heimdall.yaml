@@ -18,14 +18,14 @@ spec:
           image: dadrus/heimdall:latest
           args:
             - -c
-            - /heimdall/conf/config.yaml
+            - /conf/config.yaml
             - serve
             - proxy
           volumeMounts:
             - name: config
-              mountPath: /heimdall/conf
+              mountPath: /conf
             - name: rule
-              mountPath: /heimdall/rule
+              mountPath: /rule
       volumes:
         - name: config
           configMap:
@@ -39,11 +39,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: heimdall
+  name: proxy
 spec:
   selector:
     app: heimdall
   ports:
-  - name: heimdall
+  - name: hd
     protocol: TCP
     port: 4455
